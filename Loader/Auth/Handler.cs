@@ -42,10 +42,12 @@ namespace Auth
                 try
                 {
                     client.Headers["User-Agent"] = "AuthGG";
-                    var values = new NameValueCollection();
-                    values["type"] = "start";
-                    values["aid"] = AID;
-                    values["secret"] = Secret;
+                    var values = new NameValueCollection
+                    {
+                        ["type"] = "start",
+                        ["aid"] = AID,
+                        ["secret"] = Secret
+                    };
                     var response = client.UploadValues("https://api.auth.gg/v2/api.php", values);
                     var resp = Encoding.Default.GetString(response);
                     dynamic json = JsonConvert.DeserializeObject(resp);
@@ -88,6 +90,7 @@ namespace Auth
                        /* uwu */
                     }
                 }
+#pragma warning disable CA1031 // Do not catch general exception types
                 catch
                 {
                     MessageBox.Show("Something went wrong!", "Auth.GG Licensing System", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -103,14 +106,16 @@ namespace Auth
                 try
                 {
                     client.Headers["User-Agent"] = "AuthGG";
-                    var values = new NameValueCollection();
-                    values["type"] = "log";
-                    values["aid"] = AID;
-                    values["secret"] = Secret;
-                    values["time"] = Time();
-                    values["username"] = username;
-                    values["pcuser"] = Environment.UserName;
-                    values["action"] = action;
+                    var values = new NameValueCollection
+                    {
+                        ["type"] = "log",
+                        ["aid"] = AID,
+                        ["secret"] = Secret,
+                        ["time"] = Time(),
+                        ["username"] = username,
+                        ["pcuser"] = Environment.UserName,
+                        ["action"] = action
+                    };
                     var response = client.UploadValues("https://api.auth.gg/v2/api.php", values);
                 }
                 catch
@@ -133,14 +138,16 @@ namespace Auth
                 {
                     Authentication.OpenEncryption();
                     client.Headers["User-Agent"] = "AuthGG";
-                    var values = new NameValueCollection();
-                    values["type"] = "login";
-                    values["username"] = username;
-                    values["password"] = password;
-                    values["hwid"] = HWID();
-                    values["aid"] = AID;
-                    values["secret"] = Secret;
-                    values["time"] = Time();
+                    var values = new NameValueCollection
+                    {
+                        ["type"] = "login",
+                        ["username"] = username,
+                        ["password"] = password,
+                        ["hwid"] = HWID(),
+                        ["aid"] = AID,
+                        ["secret"] = Secret,
+                        ["time"] = Time()
+                    };
                     var response = client.UploadValues("https://api.auth.gg/v2/api.php", values);
                     var resp = Encoding.Default.GetString(response);
                     dynamic json = JsonConvert.DeserializeObject(resp);
@@ -200,15 +207,17 @@ namespace Auth
                 using (var client = new WebClient())
                 {
                     client.Headers["User-Agent"] = "AuthGG";
-                    var values = new NameValueCollection();
-                    values["type"] = "register";
-                    values["username"] = username;
-                    values["password"] = password;
-                    values["email"] = email;
-                    values["token"] = token;
-                    values["hwid"] = HWID();
-                    values["aid"] = AID;
-                    values["secret"] = Secret;
+                    var values = new NameValueCollection
+                    {
+                        ["type"] = "register",
+                        ["username"] = username,
+                        ["password"] = password,
+                        ["email"] = email,
+                        ["token"] = token,
+                        ["hwid"] = HWID(),
+                        ["aid"] = AID,
+                        ["secret"] = Secret
+                    };
                     var response = client.UploadValues("https://api.auth.gg/v2/api.php", values);
                     var resp = Encoding.Default.GetString(response);
                     dynamic json = JsonConvert.DeserializeObject(resp);
@@ -269,13 +278,15 @@ namespace Auth
                 using (var client = new WebClient())
                 {
                     client.Headers["User-Agent"] = "AuthGG";
-                    var values = new NameValueCollection();
-                    values["type"] = "redeem";
-                    values["username"] = username;
-                    values["password"] = password;
-                    values["token"] = token;
-                    values["aid"] = AID;
-                    values["secret"] = Secret;
+                    var values = new NameValueCollection
+                    {
+                        ["type"] = "redeem",
+                        ["username"] = username,
+                        ["password"] = password,
+                        ["token"] = token,
+                        ["aid"] = AID,
+                        ["secret"] = Secret
+                    };
                     var response = client.UploadValues("https://api.auth.gg/v2/api.php", values);
                     var resp = Encoding.Default.GetString(response);
                     dynamic json = JsonConvert.DeserializeObject(resp);
@@ -359,6 +370,7 @@ namespace Auth
             {
                 return "[ERROR] : Variable does not exist!";
             }
+#pragma warning restore CA1031 // Do not catch general exception types
         }
     }
 }
